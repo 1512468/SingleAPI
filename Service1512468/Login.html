@@ -1,9 +1,9 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title></title>
     <meta charset="utf-8" />
-    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body style="padding-top:20px">
     <div class="col-md-10 col-md-offset-1">
@@ -43,54 +43,21 @@
                 </tbody>
             </table>
             <!--Bootstrap alert to display error message if the login fails-->
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="success">
-                        <th>
-                            Social Logins
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <input type="button" id="btnGoogleLogin"
-                                   value="Login with Google" class="btn btn-success" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="button" id="btnFacebookLogin"
-                                   value="Login with Facebook" class="btn btn-success" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
             <div id="divError" class="alert alert-danger collapse">
                 <a id="linkClose" href="#" class="close">&times;</a>
                 <div id="divErrorText"></div>
             </div>
         </div>
     </div>
-    <script src="../Scripts/jquery-1.10.2.min.js"></script>
-    <script src="../Scripts/GoogleAuthentication.js"></script>
-    <script type="text/javascript">$(document).ready(function () {
-            getAccessToken();
-            //event Login with Networl Google
-            // get api to get URL
-            // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-            // encode http://localhost:57148/Login.html to  http%3A%2F%2Flocalhost%3A57148%2FLogin.html
 
-            $('#btnGoogleLogin').click(function () {
-                window.location.href ="/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%3A57148%2FLogin.html&state=vJbvEboGLktq5QY2BCxANDbTd76V75Elqxi_cZqfTbc1";
-            });
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
 
-            // event Close
+    <script type="text/javascript">
+        $(document).ready(function () {
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
             });
 
-            //event Login normal
             $('#btnLogin').click(function () {
                 $.ajax({
                     // Post username, password & the grant type to /token
@@ -109,7 +76,8 @@
                     // EmployeeService project before running it
                     success: function (response) {
                         sessionStorage.setItem("accessToken", response.access_token);
-                        window.location.href = "Data.html";
+                        sessionStorage.setItem("userName", response.userName);
+                        window.location.href = "HomePage.html";
                     },
                     // Display errors if any in the Bootstrap alert <div>
                     error: function (jqXHR) {
@@ -118,6 +86,7 @@
                     }
                 });
             });
-        });</script>
+        });
+    </script>
 </body>
 </html>

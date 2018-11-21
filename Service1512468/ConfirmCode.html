@@ -1,0 +1,93 @@
+﻿@{
+	Layout = null;
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Confirm Code</title>
+    <!--Bootsrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="~/Content/mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Confirm Code</h3>
+                </div>
+                <div class="card-body">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Type Code Here" id="code">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="form-action">
+                        <input type="submit" value="Send" class="btn float-none login_btn" id="send" onclick="myfunc()">
+                    </div>
+                </div>
+                <input type="hidden" id="currentUserId" value=@Model.currentUserId />
+                <input type="hidden" id="phone" value=@Model.phone />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">function myfunc() {
+		var obj = JSON.parse(localStorage.getItem('infoCustomer'));
+		console.log(obj);
+		var register = {
+			"userId": $('#currentUserId').val(),
+			"code": $('#code').val(),
+			"phoneNumber": $('#phone').val()
+		};
+		console.log(register);
+				$.ajax({
+					type: "GET",
+					url: "/api/Account/ConfirmCode",
+					data: "userId=" + $('#currentUserId').val() + "&code=" + $('#code').val() + "&phoneNumber=" + $('#phone').val(),
+					success: function (data) {
+						console.log(data);
+						$.ajax({
+							type: "POST",
+							url: "/Customer/Addnew",
+							contentType: "application/json",
+							dataType: 'json',
+							data: JSON.stringify(obj),
+							success: function (data) {
+								console.log(data);
+							},
+							error: function (data) {
+								console.log(data);
+							}
+						});
+					},
+					error: function (data) {
+						console.log(data);
+					}
+		});
+				//$.ajax({
+		//	url: "",
+		//	dataType: 'json',
+		//	success: function (data) {
+		//		console.log(data);
+		//		for (var i = 0; i < data.length; i++) {
+		//			var html = '<tr><td>' + data[i].ngayNhan + '</td><td>' + data[i].ngayTra + '</td><td>' + data[i].soNgayThue + '</td><td>' + data[i].soNguoiThue + '</td><td>' + data[i].giaTien + '</td><td>' + data[i].soPhong + '</td></tr>';
+		//			$('table#applendData tbody').append(html);
+		//		}
+		//		icon.addClass('hide').parent().removeClass('disabled');
+		//	}
+		//});
+	}</script>
