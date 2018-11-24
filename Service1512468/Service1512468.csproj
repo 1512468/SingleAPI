@@ -231,6 +231,8 @@
     <Compile Include="Controllers\BEDsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ROOMsController.cs" />
+    <Compile Include="Controllers\SERVICEsController.cs" />
+    <Compile Include="Controllers\THERAPISTsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
