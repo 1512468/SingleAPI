@@ -78,10 +78,8 @@ namespace Service1512468.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             db.BEDs.Add(bED);
             db.SaveChanges();
-
             return CreatedAtRoute("DefaultApi", new { id = bED.ID }, bED);
         }
 

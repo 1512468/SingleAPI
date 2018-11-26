@@ -13,6 +13,8 @@
 </head>
 <body>
     <div id="wrapper">
+
+        <!-- ========================================HEADER NAVIGATION BAR========================================-->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -250,7 +252,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="HomePage.html"><i class="fa  fa-soundcloud  fa-fw" ></i> OUTLET</a>
+                            <a href="HomePage.html"><i class="fa  fa-soundcloud  fa-fw"></i> OUTLET</a>
                         </li>
                         <li>
                             <a href="HomePage.html"><i class="fa fa-database  fa-fw"></i>SUPER OUTLET</a>
@@ -263,31 +265,32 @@
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
-
         </nav>
+
+        <!--=========================================TABLE OUTLET DASH BOARD======================================-->
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="text-center">MANAGER DASH BOARD</h1>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
+                    <!-- ===============================================BED LIST================================= -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="text-center">BED LIST</h4>
                         </div>
                         <br />
                         <div class="pull-left panel-body">
-                            <button id="btnLoadBEDs" class="btn btn-outline btn-success" type="button">Load Bed</button>
+                            <button id="btnLoadBEDs" class="btn btn-outline btn-primary" type="button">Load Bed</button>
+                            <a href="Beds.html" id="btnAddBEDs" class="btn btn-outline btn-success" type="button" >Add Bed</a>
                         </div>
                         <br />
                         <br />
-                        <!-- ===============================================Table BED LIST================================= -->
+
                         <div class="panel-body" id="divDataBeds">
-                            <table id="tblData" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <table id="tblData" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -296,6 +299,7 @@
                                         <th>IDService</th>
                                         <th>Describe</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tblBody"></tbody>
@@ -317,7 +321,7 @@
                         <br />
                         <!-- /.panel-body -->
                     </div>
-                    <!--================================================= ROOOM LIST========================================= -->
+                    <!--================================================ROOOM LIST=============================== -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="text-center">ROOM  LIST</h4>
@@ -360,7 +364,7 @@
                         <br />
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /================================================SERVICE ASSIGNED  LIST==============================-->
+                    <!-- /==============================================SERVICE ASS LIST=========================-->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="text-center">SERVICE LIST</h4>
@@ -406,148 +410,144 @@
                         <!-- /.panel-body -->
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-           
         </div>
-        <!-- /#page-wrapper -->
-
     </div>
-        <script src="Scripts/jquery-1.10.2.min.js"></script>
-        <script src="Scripts/bootstrap.min.js"></script>
+    <!-- ==============================================================PLUGGIN ================================= -->
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-                $('#spanUsername').text('OUTLET MANAGER: ' + localStorage.getItem('userName'));
+            $('#spanUsername').text('OUTLET MANAGER: ' + localStorage.getItem('userName'));
 
-                //if (sessionStorage.getItem('accessToken') == null) {
-                //    window.location.href = "Login.html";
-                //}
+            //if (sessionStorage.getItem('accessToken') == null) {
+            //    window.location.href = "Login.html";
+            //}
 
-                $('#linkClose').click(function () {
-                    $('#divError').hide('fade');
-                });
-
-                $('#errorModal').on('hidden.bs.modal', function () {
-                    window.location.href = "Login.html";
-                });
-
-                $('#btnLoadBEDs').click(function () {
-                    $.ajax({
-                        url: '/api/BEDs',
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer '
-                                + sessionStorage.getItem("accessToken")
-                        },
-                        success: function (data) {
-                            $('#divDataBeds').removeClass('hidden');
-                            $('#tblBody').empty();
-                            $.each(data, function (index, value) {
-                                var row = $('<tr><td>' + value.ID + '</td><td>'
-                                    + value.BedName + '</td><td>'
-                                    + value.IDRoom + '</td><td>'
-                                    + value.IDService + '</td><td>'
-                                    + value.Describe + '</td><td>'
-                                    + value.Status + '</td></tr>');
-                                $('#tblData').append(row);
-                            });
-                        },
-                        error: function (jQXHR) {
-                            // If status code is 401, access token expired, so
-                            // redirect the user to the login page
-                            if (jQXHR.status == "401") {
-                                $('#errorModal').modal('show');
-                            }
-                            else {
-                                $('#divErrorText').text(jqXHR.responseText);
-                                $('#divError').show('fade');
-                            }
-                        }
-                    });
-                });
-
-                $('#btnLoadROOMs').click(function () {
-                    $.ajax({
-                        url: '/api/ROOMs',
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer '
-                                + sessionStorage.getItem("accessToken")
-                        },
-                        success: function (data) {
-
-                            $('#divDataRooms').removeClass('hidden');
-                            $('#tblBodyRooms').empty();
-                            $.each(data, function (index, value) {
-                                var row = $('<tr><td>' + value.ID + '</td><td>'
-                                    + value.RoomName + '</td><td>'
-                                    + value.Amount + '</td><td>'
-                                    + value.Describe + '</td><td>'
-                                    + value.Status + '</td></tr>');
-                                $('#tblDataRooms').append(row);
-                            });
-
-                        },
-                        error: function (jQXHR) {
-                            // If status code is 401, access token expired, so
-                            // redirect the user to the login page
-                            if (jQXHR.status == "401") {
-                                $('#errorModal').modal('show');
-                            }
-                            else {
-                                $('#divErrorText').text(jqXHR.responseText);
-                                $('#divError').show('fade');
-                            }
-                        }
-                    });
-                });
-
-                $('#btnLoadServiceAs').click(function () {
-                    $.ajax({
-                        url: '/api/SERVICEs',
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer '
-                                + sessionStorage.getItem("accessToken")
-                        },
-                        success: function (data) {
-                            $('#divDataServices').removeClass('hidden');
-                            $('#tblBodyServices').empty();
-                            $.each(data, function (index, value) {
-                                var row = $('<tr><td>' + value.ID + '</td><td>'
-                                    + value.ServiceName + '</td><td>'
-                                    + value.Price + '</td><td>'
-                                    + value.TypeService + '</td><td>'
-                                    + value.Image + '</td><td>'
-                                    + value.Describe + '</td><td>'
-                                    + value.RequireEmployee + '</td></tr>');
-                                $('#tblDataServices').append(row);
-                            });
-
-                        },
-                        error: function (jQXHR) {
-                            // If status code is 401, access token expired, so
-                            // redirect the user to the login page
-                            if (jQXHR.status == "401") {
-                                $('#errorModal').modal('show');
-                            }
-                            else {
-                                $('#divErrorText').text(jqXHR.responseText);
-                                $('#divError').show('fade');
-                            }
-                        }
-                    });
-                });
-
-
-                $('#btnLogoff').click(function () {
-                    sessionStorage.removeItem('accessToken');
-                    window.location.href = "Login.html";
-                });
-
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
             });
-        </script>
+
+            $('#errorModal').on('hidden.bs.modal', function () {
+                window.location.href = "Login.html";
+            });
+
+            $('#btnLoadBEDs').click(function () {
+                $.ajax({
+                    url: '/api/BEDs',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    success: function (data) {
+                        $('#divDataBeds').removeClass('hidden');
+                        $('#tblBody').empty();
+                        $.each(data, function (index, value) {
+                            var row = $('<tr><td>' + value.ID + '</td><td>'
+                                + value.BedName + '</td><td>'
+                                + value.IDRoom + '</td><td>'
+                                + value.IDService + '</td><td>'
+                                + value.Describe + '</td><td>'
+                                + value.Status + '</td></tr>');
+                            $('#tblData').append(row);
+                        });
+                    },
+                    error: function (jQXHR) {
+                        // If status code is 401, access token expired, so
+                        // redirect the user to the login page
+                        if (jQXHR.status == "401") {
+                            $('#errorModal').modal('show');
+                        }
+                        else {
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                        }
+                    }
+                });
+            });
+
+            $('#btnLoadROOMs').click(function () {
+                $.ajax({
+                    url: '/api/ROOMs',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    success: function (data) {
+
+                        $('#divDataRooms').removeClass('hidden');
+                        $('#tblBodyRooms').empty();
+                        $.each(data, function (index, value) {
+                            var row = $('<tr><td>' + value.ID + '</td><td>'
+                                + value.RoomName + '</td><td>'
+                                + value.Amount + '</td><td>'
+                                + value.Describe + '</td><td>'
+                                + value.Status + '</td></tr>');
+                            $('#tblDataRooms').append(row);
+                        });
+
+                    },
+                    error: function (jQXHR) {
+                        // If status code is 401, access token expired, so
+                        // redirect the user to the login page
+                        if (jQXHR.status == "401") {
+                            $('#errorModal').modal('show');
+                        }
+                        else {
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                        }
+                    }
+                });
+            });
+
+            $('#btnLoadServiceAs').click(function () {
+                $.ajax({
+                    url: '/api/SERVICEs',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer '
+                            + sessionStorage.getItem("accessToken")
+                    },
+                    success: function (data) {
+                        $('#divDataServices').removeClass('hidden');
+                        $('#tblBodyServices').empty();
+                        $.each(data, function (index, value) {
+                            var row = $('<tr><td>' + value.ID + '</td><td>'
+                                + value.ServiceName + '</td><td>'
+                                + value.Price + '</td><td>'
+                                + value.TypeService + '</td><td>'
+                                + value.Image + '</td><td>'
+                                + value.Describe + '</td><td>'
+                                + value.RequireEmployee + '</td></tr>');
+                            $('#tblDataServices').append(row);
+                        });
+
+                    },
+                    error: function (jQXHR) {
+                        // If status code is 401, access token expired, so
+                        // redirect the user to the login page
+                        if (jQXHR.status == "401") {
+                            $('#errorModal').modal('show');
+                        }
+                        else {
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                        }
+                    }
+                });
+            });
+
+            $('#btnLogoff').click(function () {
+                sessionStorage.removeItem('accessToken');
+                window.location.href = "Login.html";
+            });
+
+        });
+    </script>
 </body>
 </html>
