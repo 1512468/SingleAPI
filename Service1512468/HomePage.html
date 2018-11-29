@@ -1,8 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>HomePages</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Scripts/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Scripts/admin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
@@ -15,7 +19,7 @@
     <div id="wrapper">
 
         <!-- ========================================HEADER NAVIGATION BAR========================================-->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -23,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">DASH BOARD</a>
+                <a class="navbar-brand fa fa-dashboard"> DASH BOARD</a>
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
@@ -255,10 +259,10 @@
                             <a href="HomePage.html"><i class="fa  fa-soundcloud  fa-fw"></i> OUTLET</a>
                         </li>
                         <li>
-                            <a href="HomePage.html"><i class="fa fa-database  fa-fw"></i>SUPER OUTLET</a>
+                            <a href="HomePage.html"><i class="fa fa-database  fa-fw"></i> SUPER OUTLET</a>
                         </li>
                         <li>
-                            <a href="HomePage.html"><i class="fa fa-group  fa-fw"></i>THERAPIST</a>
+                            <a href="HomePage.html"><i class="fa fa-group  fa-fw"></i> THERAPIST</a>
                         </li>
                     </ul>
                 </div>
@@ -271,20 +275,22 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="text-center">MANAGER DASH BOARD</h1>
+                    <br />
+                    <div class="fa fa-table"> MANAGER DASH BOARD</div>
                 </div>
             </div>
+            <br />
             <div class="row">
                 <div class="col-lg-12">
                     <!-- ===============================================BED LIST================================= -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="text-center">BED LIST</h4>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">
+                            <strong class="text-center">BED LIST</strong>
                         </div>
                         <br />
                         <div class="pull-left panel-body">
-                            <button id="btnLoadBEDs" class="btn btn-outline btn-primary" type="button">Load Bed</button>
-                            <a href="Beds.html" id="btnAddBEDs" class="btn btn-outline btn-success" type="button" >Add Bed</a>
+                            <button id="btnLoadBEDs" class="btn btn-danger" type="button">LOAD BED</button>
+                            <a href="Beds.html" id="btnAddBEDs" class="btn btn-success" type="button">ADD BED</a>
                         </div>
                         <br />
                         <br />
@@ -299,7 +305,6 @@
                                         <th>IDService</th>
                                         <th>Describe</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tblBody"></tbody>
@@ -322,15 +327,15 @@
                         <!-- /.panel-body -->
                     </div>
                     <!--================================================ROOOM LIST=============================== -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="text-center">ROOM  LIST</h4>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">
+                            <strong class="text-center">ROOM LIST</strong>
                         </div>
                         <br />
                         <div class="pull-left panel-body">
-                            <button id="btnLoadROOMs" class="btn btn-outline btn-success" type="button">Load Rooms</button>
+                            <button id="btnLoadROOMs" type="button" class="btn btn-danger">LOAD ROOMS</button>
+                            <a href="Rooms.html" id="btnAddROOMs" class="btn btn-success" type="button">ADD ROOM</a>
                         </div>
-                        <br />
                         <br />
                         <!-- Table ROOM LIST -->
                         <div class="panel-body" id="divDataRooms">
@@ -365,15 +370,14 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /==============================================SERVICE ASS LIST=========================-->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="text-center">SERVICE LIST</h4>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">
+                            <strong class="text-center">SERVICE LIST (The view is not fixed)</strong>
                         </div>
                         <br />
-                        <div class="pull-left panel-body">
-                            <button id="btnLoadServiceAs" class="btn btn-outline btn-success" type="button">Load Service</button>
+                        <div class="text-center">
+                            <button id="btnLoadServiceAs" class="btn btn-warning" type="button">LOAD SERVICE</button>
                         </div>
-                        <br />
                         <br />
                         <!-- Table SERVICE LIST -->
                         <div class="panel-body" id="divDataServices">
